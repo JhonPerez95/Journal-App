@@ -1,12 +1,8 @@
 import React from 'react';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
-  return (
-    <div>
-      <h1>Journal App</h1>
-      <hr />
-    </div>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
