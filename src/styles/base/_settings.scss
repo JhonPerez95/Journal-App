@@ -1,33 +1,9 @@
-* {
-  font-family: Helvetica, Arial, sans-serif;
-  margin: 0px;
-}
+// colors
+$primary: #5c62c5;
+$dark-grey: #363636;
+$light-grey: #d8d8d8;
 
-html,
-body {
-  height: 100vh;
-  width: 100vw;
-}
-
-main {
-  width: 100%;
-}
-
-.mt-1 {
-  margin-top: 5px;
-}
-.mt-5 {
-  margin-top: 20px;
-}
-
-.mb-1 {
-  margin-bottom: 5px;
-}
-
-.mb-5 {
-  margin-bottom: 20px;
-}
-
-.pointer {
-  cursor: pointer;
-}
+// colors btn google
+$white: #fff;
+$google-blue: #4285f4;
+$button-active-blue: #1669f2;
