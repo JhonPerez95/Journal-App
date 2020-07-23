@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const LoginScreen = () => {
   return (
-    <div>
+    <>
       <h3 className="auth__title">Login</h3>
 
       <form>
@@ -42,7 +42,7 @@ const LoginScreen = () => {
           Create New Acount
         </Link>
       </form>
-    </div>
+    </>
   );
 };
 
