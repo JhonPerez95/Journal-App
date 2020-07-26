@@ -10,9 +10,16 @@ export const startGoogleLogin = () => {
   };
 };
 
-export const startEmailRegister = () => {
+export const startEmailRegister = (email, password, name) => {
   return (dispatch) => {
-    firebase;
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(async ({ user }) => {
+        await user.updateProfile({ displayName: name });
+        dispatch(authActions(user.uid, user.displayName));
+      })
+      .catch((err) => console.error(err));
   };
 };
 
