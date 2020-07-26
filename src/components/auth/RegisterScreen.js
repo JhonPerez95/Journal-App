@@ -1,23 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import isEmail from 'validator/es/lib/isEmail';
+import { useDispatch, useSelector } from 'react-redux';
+
+import useForm from '../../hook/useForm';
+import { actSetError, actRemoveError } from '../../redux/actions/uiAction';
 
 const RegisterScreen = () => {
+  const dispatch = useDispatch();
+  const { msgError } = useSelector((state) => state.ui);
+
+  const [formValue, handleInputChange] = useForm({
+    name: 'Jainer',
+    email: 'jainer@gmail.com',
+    password: '12345',
+    password2: '12345',
+  });
+  const { name, email, password, password2 } = formValue;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isFormValid()) {
+      console.log(formValue);
+    }
+  };
+
+  const isFormValid = () => {
+    if (name.trim().length == 0) {
+      dispatch(actSetError('Name is required'));
+      return false;
+    } else if (!isEmail(email)) {
+      dispatch(actSetError('Email is not valid'));
+      return false;
+    } else if (password !== password2 || password.length <= 4) {
+      dispatch(actSetError('Password is not valid'));
+      return false;
+    }
+    dispatch(actRemoveError());
+    return true;
+  };
+
   return (
     <>
       <h3 className="auth__title">Registrer</h3>
-
-      <form>
+      {msgError && <div className="auth__alert-error">{msgError}</div>}
+      <form onSubmit={handleSubmit}>
         <input
           className="auth__input"
           type="text"
           name="name"
           placeholder="Name"
+          value={name}
+          onChange={handleInputChange}
         />
         <input
           className="auth__input"
           type="text"
           name="email"
           placeholder="Email"
+          value={email}
+          onChange={handleInputChange}
           autoComplete="off"
         />
         <input
@@ -25,12 +67,16 @@ const RegisterScreen = () => {
           type="password"
           name="password"
           placeholder="Password"
+          value={password}
+          onChange={handleInputChange}
         />
         <input
           className="auth__input"
           type="password"
           name="password2"
           placeholder="Confirm"
+          value={password2}
+          onChange={handleInputChange}
         />
         <button className="btn btn-primary btn-block mb-5" type="submit">
           Register
