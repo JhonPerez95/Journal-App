@@ -1,6 +1,7 @@
 import { types } from '../types/types';
 import { firebase, auhtGoogleProvider } from '../../firebase/firebaseConfig';
 import { actStartLoading, actFinishLoading } from './uiAction';
+import Swal from 'sweetalert2';
 
 // Login
 export const login = (uid, displayName) => {
@@ -39,8 +40,8 @@ export const startEmailLogin = (email, password) => {
         dispatch(actFinishLoading());
       })
       .catch((err) => {
-        console.error(err);
         dispatch(actFinishLoading());
+        Swal.fire('Error', err.message, 'error');
       });
   };
 };
@@ -52,7 +53,7 @@ export const startGoogleLogin = () => {
       .auth()
       .signInWithPopup(auhtGoogleProvider)
       .then(({ user }) => dispatch(login(user.uid, user.displayName)))
-      .catch((err) => console.error(err));
+      .catch((err) => Swal.fire('Error', err.message, 'error'));
   };
 };
 
@@ -66,6 +67,6 @@ export const startEmailRegister = (email, password, name) => {
         await user.updateProfile({ displayName: name });
         dispatch(login(user.uid, user.displayName));
       })
-      .catch((err) => console.error(err));
+      .catch((err) => Swal.fire('Error', err.message, 'error'));
   };
 };
