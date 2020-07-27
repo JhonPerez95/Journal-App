@@ -12,3 +12,15 @@ export const actRemoveError = () => {
     type: types.uiRemoveError,
   };
 };
+
+export const actStartLoading = () => {
+  return {
+    type: types.uiStartLoading,
+  };
+};
+
+export const actFinishLoading = () => {
+  return {
+    type: types.uiFinishLoading,
+  };
+};

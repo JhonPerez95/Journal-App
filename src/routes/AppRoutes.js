@@ -1,21 +1,47 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 
+import { firebase } from '../firebase/firebaseConfig';
 import JournalScreen from '../components/journal/JournalScreen';
 import AuthRoutes from './AuthRoutes';
+import { login } from '../redux/actions/authActions';
+import Loading from '../components/loading/Loading';
+import PrivateRoutes from './PrivateRoutes';
+import PublicRoutes from './PublicRoutes';
 
 const AppRoutes = () => {
+  const dispatch = useDispatch();
+  const [cheking, setCheking] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user?.uid) {
+        dispatch(login(user.uid, user.displayName));
+        setIsAuth(true);
+      } else {
+        setIsAuth(false);
+      }
+      setCheking(false);
+    });
+  }, [dispatch, setCheking]);
+
+  if (cheking) {
+    return <Loading />;
+  }
+
   return (
     <Router>
       <div>
         <Switch>
-          <Route path="/auth" component={AuthRoutes} />
-          <Route exact path="/" component={JournalScreen} />
+          <PublicRoutes isAuth={isAuth} path="/auth" component={AuthRoutes} />
+          <PrivateRoutes
+            exact
+            isAuth={isAuth}
+            path="/"
+            component={JournalScreen}
+          />
 
           <Redirect to="/auth/login" />
         </Switch>
