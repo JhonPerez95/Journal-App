@@ -4,12 +4,12 @@ import isEmail from 'validator/es/lib/isEmail';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useForm from '../../hook/useForm';
-import { actSetError, actRemoveError } from '../../redux/actions/uiAction';
+import { actRemoveError, actAlertError } from '../../redux/actions/uiAction';
 import { startEmailRegister } from '../../redux/actions/authActions';
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();
-  const { msgError } = useSelector((state) => state.ui);
+  // const { msgError } = useSelector((state) => state.ui);
 
   const [formValue, handleInputChange] = useForm({
     name: 'Jainer',
@@ -28,13 +28,13 @@ const RegisterScreen = () => {
 
   const isFormValid = () => {
     if (name.trim().length === 0) {
-      dispatch(actSetError('Name is required'));
+      dispatch(actAlertError('Name is required'));
       return false;
     } else if (!isEmail(email)) {
-      dispatch(actSetError('Email is not valid'));
+      dispatch(actAlertError('Email is not valid'));
       return false;
     } else if (password !== password2 || password.length <= 5) {
-      dispatch(actSetError('Password is not valid'));
+      dispatch(actAlertError('Password is not valid'));
       return false;
     }
     dispatch(actRemoveError());
@@ -44,7 +44,7 @@ const RegisterScreen = () => {
   return (
     <>
       <h3 className="auth__title">Registrer</h3>
-      {msgError && <div className="auth__alert-error">{msgError}</div>}
+      {/* {msgError && <div className="auth__alert-error">{msgError}</div>} */}
       <form onSubmit={handleSubmit}>
         <input
           className="auth__input"

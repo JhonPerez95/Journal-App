@@ -1,9 +1,19 @@
 import { types } from '../types/types';
 
+import Swal from 'sweetalert2';
+
 export const actSetError = (payload) => {
   return {
     type: types.uiSetError,
     payload,
+  };
+};
+
+// Alert Error
+export const actAlertError = (error) => {
+  return (dispatch) => {
+    dispatch(actSetError(error));
+    Swal.fire('Error!', error, 'error');
   };
 };
 

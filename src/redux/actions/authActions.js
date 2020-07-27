@@ -1,6 +1,7 @@
 import { types } from '../types/types';
 import { firebase, auhtGoogleProvider } from '../../firebase/firebaseConfig';
 import { actStartLoading, actFinishLoading } from './uiAction';
+
 import Swal from 'sweetalert2';
 
 // Login
