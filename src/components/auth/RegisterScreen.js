@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import isEmail from 'validator/es/lib/isEmail';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import useForm from '../../hook/useForm';
 import { actRemoveError, actAlertError } from '../../redux/actions/uiAction';
