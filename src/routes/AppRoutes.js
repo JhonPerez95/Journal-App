@@ -9,6 +9,7 @@ import { login } from '../redux/actions/authActions';
 import Loading from '../components/loading/Loading';
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
+import { startLoadingNotes } from '../redux/actions/noteActions';
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -16,9 +17,10 @@ const AppRoutes = () => {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));
+        dispatch(startLoadingNotes(user.uid));
         setIsAuth(true);
       } else {
         setIsAuth(false);
