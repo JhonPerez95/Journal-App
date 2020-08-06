@@ -7,8 +7,8 @@ const useForm = (initialState = {}) => {
     setValue({ ...value, [target.name]: target.value });
   };
 
-  const resetInput = () => {
-    setValue(initialState);
+  const resetInput = (newState = initialState) => {
+    setValue(newState);
   };
 
   return [value, handleInputChange, resetInput];
