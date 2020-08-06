@@ -39,3 +39,28 @@ export const startLoadingNotes = (uid) => {
     dispatch(setNotes(notes));
   };
 };
+
+export const startSaveNotes = (note) => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+    if (!note.url) {
+      note.url = null;
+    }
+    const noteUpdate = { ...note };
+    delete noteUpdate.id;
+
+    await db.doc(`${uid}/journal/notes/${note.id}`).update(noteUpdate);
+
+    dispatch(refreshNote(note.id, note));
+  };
+};
+
+export const refreshNote = (id, note) => {
+  return {
+    type: types.notesUpdate,
+    payload: {
+      id,
+      ...note,
+    },
+  };
+};
