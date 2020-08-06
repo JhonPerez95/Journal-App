@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 import { db } from '../../firebase/firebaseConfig';
 import { types } from '../types/types';
 import { loadNotes } from '../../helpers/loadNotes';
@@ -50,8 +52,8 @@ export const startSaveNotes = (note) => {
     delete noteUpdate.id;
 
     await db.doc(`${uid}/journal/notes/${note.id}`).update(noteUpdate);
-
     dispatch(refreshNote(note.id, note));
+    Swal.fire('Saved', note.title, 'success');
   };
 };
 
