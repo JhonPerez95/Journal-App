@@ -26,6 +26,10 @@ const NoteScreen = () => {
     dispatch(activeNote(formValue.id, { ...formValue }));
   }, [formValue, dispatch]);
 
+  const hanldeDelete = () => {
+    console.log('click Delete');
+  };
+
   return (
     <div className="notes__main-content">
       <NotesAppBar />
@@ -47,13 +51,13 @@ const NoteScreen = () => {
         ></textarea>
         {url && (
           <div className="notes__image">
-            <img
-              src="https://scx1.b-cdn.net/csz/news/800/2017/theoreticala.jpg"
-              alt="img"
-            />
+            <img src={url} alt="img" />
           </div>
         )}
       </div>
+      <button className="btn btn-danger" onClick={hanldeDelete}>
+        Delete
+      </button>
     </div>
   );
 };

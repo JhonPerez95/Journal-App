@@ -31,3 +31,5 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+// react-journal
