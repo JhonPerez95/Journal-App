@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import JournalEntries from './JournalEntries';
 import { startLogout } from '../../redux/actions/authActions';
-import { startNewNote } from '../../redux/actions/noteActions';
+import { startNewNote, notesLoguot } from '../../redux/actions/noteActions';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(startLogout());
+    dispatch(notesLoguot());
   };
 
   const handleAddNew = () => {
