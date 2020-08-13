@@ -16,6 +16,7 @@ describe('Test the helper fileUpdload', () => {
     const blob = await respImg.blob();
     const file = new File([blob], 'img.png');
     const url = await fileUpload(file);
+
     // Delete img
     const segment = url.split('/');
     const imgId = segment[segment.length - 1].replace('.png', '');
