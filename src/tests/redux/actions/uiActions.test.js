@@ -1,10 +1,10 @@
+import '@testing-library/jest-dom';
 const {
   actSetError,
   actRemoveError,
   actStartLoading,
   actFinishLoading,
 } = require('../../../redux/actions/uiAction');
-import '@testing-library/jest-dom';
 import { types } from '../../../redux/types/types';
 
 describe('Test file uiActions ', () => {
