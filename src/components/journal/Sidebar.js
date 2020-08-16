@@ -10,7 +10,6 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     dispatch(startLogout());
-    dispatch(notesLoguot());
   };
 
   const handleAddNew = () => {

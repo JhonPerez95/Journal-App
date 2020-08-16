@@ -3,6 +3,7 @@ import { firebase, auhtGoogleProvider } from '../../firebase/firebaseConfig';
 import { actStartLoading, actFinishLoading } from './uiAction';
 
 import Swal from 'sweetalert2';
+import { notesLoguot } from './noteActions';
 
 // Login
 export const login = (uid, displayName) => {
@@ -26,6 +27,7 @@ export const startLogout = () => {
   return async (dispatch) => {
     await firebase.auth().signOut();
     dispatch(logout());
+    dispatch(notesLoguot());
   };
 };
 
@@ -33,7 +35,7 @@ export const startLogout = () => {
 export const startEmailLogin = (email, password) => {
   return (dispatch) => {
     dispatch(actStartLoading());
-    firebase
+    return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {
