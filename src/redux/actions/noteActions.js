@@ -63,9 +63,7 @@ export const startSaveNotes = (note) => {
     delete noteUpdate.id;
 
     await db.doc(`${uid}/journal/notes/${note.id}`).update(noteUpdate);
-
     dispatch(refreshNote(note.id, note));
-
     Swal.fire('Saved', note.title, 'success');
   };
 };
