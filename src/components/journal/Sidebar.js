@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import JournalEntries from './JournalEntries';
 import { startLogout } from '../../redux/actions/authActions';
-import { startNewNote, notesLoguot } from '../../redux/actions/noteActions';
+import { startNewNote } from '../../redux/actions/noteActions';
 
 const Sidebar = () => {
   const dispatch = useDispatch();

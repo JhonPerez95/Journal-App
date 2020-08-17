@@ -3,12 +3,10 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store'; //ES6 modules
 
-import { startLogout } from '../../../redux/actions/authActions';
-import Sidebar from '../../../components/journal/Sidebar';
-import { startNewNote } from '../../../redux/actions/noteActions';
+import { activeNote } from '../../../redux/actions/noteActions';
+import NoteScreen from '../../../components/note/NoteScreen';
 
 // Config Store Redux
 const middlewares = [thunk];
@@ -20,7 +18,8 @@ const initState = {
   notes: {
     notes: [],
     active: {
-      id: 'asdasdas',
+      id: 1234,
+      body: 'Test body',
       title: 'test Title',
     },
   },
@@ -28,33 +27,28 @@ const initState = {
 let store = mockStore(initState);
 store.dispatch = jest.fn();
 
-jest.mock('../../../redux/actions/authActions', () => ({
-  startLogout: jest.fn(),
-}));
 jest.mock('../../../redux/actions/noteActions', () => ({
-  startNewNote: jest.fn(),
+  activeNote: jest.fn(),
 }));
 
 const wrapper = mount(
   <Provider store={store}>
-    <MemoryRouter>
-      <Sidebar />
-    </MemoryRouter>
+    <NoteScreen />
   </Provider>
 );
 
-describe('Tests the component <Sidebar/>', () => {
+describe('Test the component <NoteScrren/>', () => {
   test('should show correctly ', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  test('should call to action startLogout', () => {
-    wrapper.find('button').prop('onClick')();
-    expect(startLogout).toHaveBeenCalled();
-  });
-
-  test('should call to action startNewNote', () => {
-    wrapper.find('.journal__new-entry').prop('onClick')();
-    expect(startNewNote).toHaveBeenCalled();
+  test('should call action activeNote', () => {
+    wrapper.find('input[name="title"]').simulate('change', {
+      target: {
+        value: 'Title the Testing',
+        name: 'title',
+      },
+    });
+    expect(activeNote).toHaveBeenCalled();
   });
 });

@@ -20,7 +20,7 @@ describe('Test the helper fileUpdload', () => {
     // Delete img
     const segment = url.split('/');
     const imgId = segment[segment.length - 1].replace('.png', '');
-    console.log(imgId);
+    // console.log(imgId);
     cloudinary.v2.api.delete_resources(imgId, {}, () => {
       done();
     });
