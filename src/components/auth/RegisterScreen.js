@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import isEmail from 'validator/es/lib/isEmail';
+import validator from 'validator';
+
 import { useDispatch } from 'react-redux';
 
 import useForm from '../../hook/useForm';
@@ -30,7 +31,7 @@ const RegisterScreen = () => {
     if (name.trim().length === 0) {
       dispatch(actAlertError('Name is required'));
       return false;
-    } else if (!isEmail(email)) {
+    } else if (!validator.isEmail(email)) {
       dispatch(actAlertError('Email is not valid'));
       return false;
     } else if (password !== password2 || password.length <= 5) {
